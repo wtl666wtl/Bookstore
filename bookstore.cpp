@@ -798,9 +798,9 @@ void work(string file) {
 	in.close(); 
 }
 int main() {
-	ifstream command("command.txt");
+	//ifstream command("command.txt");
 	ofstream precreate("orz.txt");
-	freopen("1.out","w",stdout); 
+	//freopen("1.out","w",stdout); 
 	precreate.close();
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
@@ -820,17 +820,17 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
-	if(!command) {
+	//if(!command) {
 		//orz;
-	} else {
+	//} else {
 		string s;
 		while(1) {
-			command>>s;
+			cin>>s;//command>>s;
 			if(s==load) {
-				getline(command,s);
+				getline(cin,s);//getline(command,s);
 				getfile(s);
 				work(s);
 			} else if(s==ex)return 0;
 		}
-	}
+	//}
 }
