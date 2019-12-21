@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 #define mo 499
-#define num 10
+#define num 33
 using namespace std;
 struct Name {
-	char id[31],pass[31],name[31];
+	char id[101],pass[101],name[101];
 	int key;
 	Name() {
 		id[0]='\0';
@@ -22,7 +22,7 @@ struct Name {
 	}
 };
 struct Book {
-	char isbn[51],name[51],aut[51],kw[51];
+	char isbn[101],name[101],aut[101],kw[101];
 	int sum;
 	long long cost;
 	Book() {
