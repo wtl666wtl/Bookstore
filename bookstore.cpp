@@ -465,17 +465,17 @@ long long findisbn(string A,int b) {
 	}
 }
 void work(string file) {
-	char dataname[20];
+	/*char dataname[20];
 	for(int i=0; i<file.length(); i++)dataname[i]=file[i];
 	dataname[file.length()]='\0';
 	ifstream in(dataname);
 	if(!in) {
 		puts("Invalid");
 		return;
-	}
+	}*/
 	string ss;
 	while(1) {
-		getline(in,ss);
+		getline(cin,ss);
 		if(ss==ex)return;
 		string s=getwd(ss);
 		if(s==logout) {
@@ -795,7 +795,7 @@ void work(string file) {
 			}
 		} else puts("Invalid");
 	}
-	in.close(); 
+	//in.close(); 
 }
 int main() {
 	//ifstream command("command.txt");
@@ -820,10 +820,11 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
+	work("orz");
 	//if(!command) {
 		//orz;
 	//} else {
-		string s;
+	/*	string s;
 		while(1) {
 			cin>>s;//command>>s;
 			if(s==load) {
@@ -831,6 +832,6 @@ int main() {
 				getfile(s);
 				work(s);
 			} else if(s==ex)return 0;
-		}
+		}*/
 	//}
 }
