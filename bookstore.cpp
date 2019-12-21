@@ -435,7 +435,7 @@ void showall(Book A) {
 			if(string(A.name)!=""&&string(tmp.name)!=string(A.name))continue;
 			if(string(A.aut)!=""&&string(tmp.aut)!=string(A.aut))continue;
 			if(string(A.kw)!=""&&!judge(string(tmp.kw),string(A.kw)))continue;
-			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/100.0,tmp.sum);
+			printf("%s\t%s\t%s\t%s\t%.2lf\t%d鏈琝n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/100.0,tmp.sum);
 		}
 		tfile.close();
 	}
