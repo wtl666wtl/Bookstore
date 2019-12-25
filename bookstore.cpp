@@ -827,7 +827,7 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
-	work("orz");
+	//work("orz");
 	//if(!command) {
 		//orz;
 	//} else {
