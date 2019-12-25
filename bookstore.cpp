@@ -640,6 +640,7 @@ void work(string file) {
 					} else {
 						if(findisbn(tmp))puts("Invalid");
 						else {
+							memcpy(tt.isbn,tmp.isbn,sizeof(tt.isbn));
 							if(string(tmp.aut)!="\0")memcpy(tt.aut,tmp.aut,sizeof(tt.aut));
 							if(string(tmp.name)!="\0")memcpy(tt.name,tmp.name,sizeof(tt.name));
 							if(string(tmp.kw)!="\0")memcpy(tt.kw,tmp.kw,sizeof(tt.kw));
