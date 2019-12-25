@@ -639,7 +639,13 @@ void work(string file) {
 						ttfile.close();
 					} else {
 						if(findisbn(tmp))puts("Invalid");
-						else tmp.cost=(tmp.cost==-1ll?0ll:tmp.cost),deleteb(),findb(tmp);
+						else {
+							if(string(tmp.aut)!="\0")memcpy(tt.aut,tmp.aut,sizeof(tt.aut));
+							if(string(tmp.name)!="\0")memcpy(tt.name,tmp.name,sizeof(tt.name));
+							if(string(tmp.kw)!="\0")memcpy(tt.kw,tmp.kw,sizeof(tt.kw));
+							if(tmp.cost>=0)tt.cost=tmp.cost;
+							deleteb(),findb(tt);
+						}
 					}
 				} else puts("Invalid");
 			}
