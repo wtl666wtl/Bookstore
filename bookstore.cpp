@@ -823,10 +823,10 @@ int main() {
 	e[1].mins="\0";
 	e[1].maxs="\0";
 	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
-	file_name.write(reinterpret_cast<const char *>(&ttmp),sizeof(Book));
+	//file_name.write(reinterpret_cast<const char *>(&ttmp),sizeof(Book));
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
-	findu(tmp);
+	//findu(tmp);
 	//work("orz");
 	//if(!command) {
 		//orz;
