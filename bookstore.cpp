@@ -170,7 +170,7 @@ bool findu(Name A) {
 	char dataname[20];
 	sprintf(dataname,"%s%d%s","name", x,".txt");
 	ifstream tfile(dataname,ifstream::in|ifstream::binary);
-	Name tmp;
+	Name tmp=Name();
 	tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Name));
 	while(!tfile.eof()) {
 		if(string(tmp.id)==string(A.id)) {
@@ -205,8 +205,7 @@ bool changepass(Name A) {
 				tfile.close();
 				return 0;
 			}
-			for(int i=0; i<strlen(A.name); i++)tmp.pass[i]=A.name[i];
-			tmp.pass[strlen(A.name)]='\0';
+			for(int i=0; i<=100; i++)tmp.pass[i]=A.name[i];
 			tfile.seekp(loc);
 			tfile.write(reinterpret_cast<char *>(&tmp),sizeof(Name));
 			tfile.close();
@@ -821,7 +820,7 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
-	//work("True.in");
+	work("True.in");
 	//if(!command) {
 		//orz;
 	//} else {
