@@ -181,7 +181,7 @@ bool findu(Name A) {
 	}
 	tfile.close();
 	ofstream ttfile(dataname, ofstream::app|ofstream::binary);
-	ttfile.write(reinterpret_cast<const char *>(&A),sizeof(Name));
+	//ttfile.write(reinterpret_cast<const char *>(&A),sizeof(Name));
 	ttfile.close();
 	return 1;
 }
