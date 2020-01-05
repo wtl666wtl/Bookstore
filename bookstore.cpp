@@ -577,7 +577,7 @@ void work(string file) {
 			else {
 				Book tmp=Book();
 				string a,b,c,d;
-				int e=-1;
+				double e=-1;
 				bool flag=0;
 				while(ss!="") {
 					if(ss[0]=='-')ss.erase(0,1);
@@ -814,7 +814,7 @@ void work(string file) {
 int main() {
 	ifstream command("command.txt");
 	ofstream precreate("orz.txt");
-//	freopen("1.out","w",stdout);
+	//freopen("1.out","w",stdout);
 	precreate.close();
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
