@@ -812,7 +812,7 @@ bool memory_leak()
 		pre<<ss<<endl;
 		if(ss==ex)break;
 		if(ss.length()>=4&&ss[0]=='s'&&ss[1]=='h'&&ss[2]=='o'&&ss[3]=='w')flag1=1;
-		if(ss.length()>=4&&ss[0]=='s'&&ss[1]=='e'&&ss[2]=='l'&&ss[3]=='e')flag1=1;
+		if(ss.length()>=4&&ss[0]=='s'&&ss[1]=='e'&&ss[2]=='l'&&ss[3]=='e')flag2=1;
 	}
 	pre.close();
 	if(hs>500&&!flag1&&flag2)return 1;
