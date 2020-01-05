@@ -11,6 +11,7 @@ struct Name {
 		key=0;
 	}
 	Name(string a,string b,int c,string d) {
+		memset(this,0,sizeof(*this));
 		for(int i=0; i<a.length(); i++)id[i]=a[i];
 		for(int i=a.length(); i<=100; i++)id[i]='\0';
 		for(int i=0; i<b.length(); i++)pass[i]=b[i];
@@ -31,6 +32,7 @@ struct Book {
 		cost=0;
 	}
 	Book(string a,string b,string c,string d,int e,long long f) {
+		memset(this,0,sizeof(*this));
 		for(int i=0; i<a.length(); i++)isbn[i]=a[i];
 		for(int i=a.length(); i<=100; i++)isbn[i]='\0';
 		for(int i=0; i<b.length(); i++)name[i]=b[i];
@@ -157,7 +159,7 @@ string getfile(string &s) {
 	return s;
 }
 Name ok(string a,string b,string c,string d) {
-	Name tmp;
+	Name tmp=Name();
 	if(a==""||b==""||c==""||d=="")tmp.key=-1;
 	int x=c[0]-48;
 	if(x!=7&&x!=1&&x!=3)tmp.key=-1;
@@ -227,12 +229,12 @@ bool deleteu(Name A) {
 	char dataname[20];
 	sprintf(dataname,"%s%d%s","name", x,".txt");
 	fstream tfile(dataname, fstream::in|fstream::binary);
-	Name tmp;
+	Name tmp=Name();
 	tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Name));
 	while(!tfile.eof()) {
 		if(string(tmp.id)==string(A.id)) {
 			tfile.close();
-			Name t;
+			Name t=Name();
 			ifstream ttfile(dataname, ifstream::in|ifstream::binary);
 			fstream ttmp("orz.txt", fstream::out|fstream::binary);
 			ttmp.flush();
@@ -270,7 +272,7 @@ bool login(Name &A) {
 	char dataname[20];
 	sprintf(dataname,"%s%d%s","name", x,".txt");
 	ifstream tfile(dataname, ifstream::in|ifstream::binary);
-	Name tmp;
+	Name tmp=Name();
 	tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Name));
 	while(!tfile.eof()) {
 		if(string(tmp.id)==string(A.id)) {
@@ -291,7 +293,7 @@ void rebuild(int x,int len) {
 	e[x].tot=len;
 	e[x].ne=cnt;
 	char dataname[20];
-	Book tmp;
+	Book tmp=Book();
 	sprintf(dataname,"%s%d%s","book", x,".txt");
 	ifstream oldfile(dataname,ifstream::in|ifstream::binary);
 	oldfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
@@ -317,7 +319,7 @@ void findb(Book A) {
 			ifstream tfile(dataname,ifstream::in|ifstream::binary);
 			fstream ttmp("orz.txt",fstream::out|fstream::binary);
 			ttmp.flush();
-			Book tmp;
+			Book tmp=Book();
 			nowby=0;
 			for(int oo=1; oo<=e[i].tot; oo++) {
 				tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
@@ -370,7 +372,7 @@ void deleteb() {
 	sprintf(dataname,"%s%d%s","book", nowbx,".txt");
 	ifstream tfile(dataname,ifstream::in|ifstream::binary);
 	fstream ttmp("orz.txt",fstream::out|fstream::binary);
-	ttmp.flush();Book tmp;
+	ttmp.flush();Book tmp=Book();
 	for(int oo=1; oo<=e[nowbx].tot; oo++) {
 		tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
 		if(nowby==1&&oo==2)e[nowbx].mins=string(tmp.isbn);
@@ -395,7 +397,7 @@ bool findisbn(Book A) {
 			char dataname[20];
 			sprintf(dataname,"%s%d%s","book", i,".txt");
 			ifstream tfile(dataname,ifstream::in|ifstream::binary);
-			Book tmp;
+			Book tmp=Book();
 			for(int oo=1; oo<=e[i].tot; oo++) {
 				tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
 				if(string(tmp.isbn)==string(A.isbn)) {
@@ -427,7 +429,7 @@ void showall(Book A) {
 		char dataname[20];
 		sprintf(dataname,"%s%d%s","book", i,".txt");
 		ifstream tfile(dataname,ifstream::in|ifstream::binary);
-		Book tmp;
+		Book tmp=Book();
 		for(int oo=1; oo<=e[i].tot; oo++) {
 			tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
 			if(i==1&&oo==1)continue;
@@ -447,7 +449,7 @@ long long findisbn(string A,int b) {
 			char dataname[20];
 			sprintf(dataname,"%s%d%s","book", i,".txt");
 			ifstream tfile(dataname,ifstream::in|ifstream::binary);
-			Book tmp;
+			Book tmp=Book();
 			for(int oo=1; oo<=e[i].tot; oo++) {
 				tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
 				if(string(tmp.isbn)==A) {
@@ -623,7 +625,7 @@ void work(string file) {
 				if(!flag) {
 					tmp=Book(a,b,c,d,0,e);
 					char dataname[20];
-					Book tt;
+					Book tt=Book();
 					sprintf(dataname,"%s%d%s","book", nowbx,".txt");
 					ifstream tfile(dataname,ifstream::in|ifstream::binary);
 					tfile.seekg((nowby-1)*sizeof(Book));
@@ -670,7 +672,7 @@ void work(string file) {
 					}
 					fincnt++;
 					char dataname[20];
-					Book tt;
+					Book tt=Book();
 					sprintf(dataname,"%s%d%s","book", nowbx,".txt");
 					ifstream tfile(dataname,ifstream::in|ifstream::binary);
 					tfile.seekg((nowby-1)*sizeof(Book));
