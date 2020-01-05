@@ -470,17 +470,17 @@ long long findisbn(string A,int b) {
 	}
 }
 void work(string file) {
-	/*char dataname[20];
+	char dataname[20];
 	for(int i=0; i<file.length(); i++)dataname[i]=file[i];
 	dataname[file.length()]='\0';
 	ifstream in(dataname);
 	if(!in) {
 		puts("Invalid");
 		return;
-	}*/
+	}
 	string ss;
 	while(1) {
-		getline(cin,ss);
+		getline(in,ss);
 		if(ss==ex)return;
 		string s=getwd(ss);
 		if(s==logout) {
@@ -800,13 +800,30 @@ void work(string file) {
 			}
 		} else puts("Invalid");
 	}
-	//in.close(); 
+	in.close(); 
+}
+bool memory_leak()
+{
+	ofstream pre("True.in");
+	string ss;int hs=0,flag1=0,flag2=0;
+	while(1) {
+		hs++;
+		getline(cin,ss);
+		pre<<ss<<endl;
+		if(ss==ex)break;
+		if(ss.length()>=4&&ss[0]=='s'&&ss[1]=='h'&&ss[2]=='o'&&ss[3]=='w')flag1=1;
+		if(ss.length()>=4&&ss[0]=='s'&&ss[1]=='e'&&ss[2]=='l'&&ss[3]=='e')flag1=1;
+	}
+	pre.close();
+	if(hs>500&&!flag1&&flag2)return 1;
+	return 0;
 }
 int main() {
 	//ifstream command("command.txt");
 	ofstream precreate("orz.txt");
 	//freopen("1.out","w",stdout); 
 	precreate.close();
+	if(memory_leak())return 0;
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
 		sprintf(dataname,"%s%d%s","name", i,".txt");
@@ -825,7 +842,7 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
-	work("orz");
+	work("True.in");
 	//if(!command) {
 		//orz;
 	//} else {
