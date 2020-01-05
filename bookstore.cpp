@@ -661,7 +661,7 @@ void work(string file) {
 			if(nowu.key<3||nowbx==0)puts("Invalid");
 			else {
 				int a=(int)getnum(ss);
-				int b=getnum(ss);
+				double b=getnum(ss);
 				if(a<0||b<0||ss!="")puts("Invalid");
 				else {
 					Finance tmp=Finance(0,b);
@@ -722,7 +722,7 @@ void work(string file) {
 							tfile.read(reinterpret_cast<char *>(&t1),sizeof(Finance));
 							tfile.close();
 							fstream ttfile("finance.txt",fstream::in|fstream::binary);
-							ttfile.seekg((fincnt-b)*sizeof(Finance));
+							ttfile.seekg((fincnt-b-1)*sizeof(Finance));
 							ttfile.read(reinterpret_cast<char *>(&t2),sizeof(Finance));
 							ttfile.close();
 							tmp.in=t1.in-t2.in;
@@ -814,7 +814,7 @@ void work(string file) {
 int main() {
 	ifstream command("command.txt");
 	ofstream precreate("orz.txt");
-	//freopen("1.out","w",stdout);
+//	freopen("1.out","w",stdout);
 	precreate.close();
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
