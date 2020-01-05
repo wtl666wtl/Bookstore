@@ -24,7 +24,7 @@ struct Name {
 struct Book {
 	char isbn[101],name[101],aut[101],kw[101];
 	int sum;
-	double cost;
+	long long cost;
 	Book() {
 		isbn[0]='\0';
 		aut[0]='\0';
@@ -33,7 +33,7 @@ struct Book {
 		sum=0;
 		cost=0;
 	}
-	Book(string a,string b,string c,string d,int e,double f) {
+	Book(string a,string b,string c,string d,int e,long long f) {
 		for(int i=0; i<a.length(); i++)isbn[i]=a[i];
 		isbn[a.length()]='\0';
 		for(int i=0; i<b.length(); i++)name[i]=b[i];
@@ -47,11 +47,11 @@ struct Book {
 	}
 };
 struct Finance {
-	double in,out;
+	long long in,out;
 	Finance() {
 		in=out=0;
 	}
-	Finance(double a,double b) {
+	Finance(long long a,long long b) {
 		in=a;
 		out=b;
 	}
@@ -440,12 +440,12 @@ void showall(Book A) {
 			if(string(A.name)!=""&&string(tmp.name)!=string(A.name))continue;
 			if(string(A.aut)!=""&&string(tmp.aut)!=string(A.aut))continue;
 			if(string(A.kw)!=""&&!judge(string(tmp.kw),string(A.kw)))continue;
-			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost,tmp.sum);
+			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/100.0,tmp.sum);
 		}
 		tfile.close();
 	}
 }
-double findisbn(string A,int b) {
+long long findisbn(string A,int b) {
 	for(int i=1; i; i=e[i].ne) {
 		if(e[i].mins<=A&&e[i].maxs>=A) {
 			char dataname[20];
@@ -614,7 +614,7 @@ void work(string file) {
 							break;
 						}
 						ss.erase(0,1);
-						e=getnum(ss);
+						e=100ll*getnum(ss);
 						if(e<0) {
 							flag=1;
 							break;
@@ -652,7 +652,7 @@ void work(string file) {
 			if(nowu.key<3||nowbx==0)puts("Invalid");
 			else {
 				int a=(int)getnum(ss);
-				int b=getnum(ss);
+				int b=100*getnum(ss);
 				if(a<0||b<0||ss!="")puts("Invalid");
 				else {
 					Finance tmp=Finance(0,b);
@@ -703,7 +703,7 @@ void work(string file) {
 						tfile.seekg((fincnt-1)*sizeof(Finance));
 						tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Finance));
 						tfile.close();
-						printf("+ %.2lf - %.2lf\n",tmp.in,tmp.out);
+						printf("+ %.2lf - %.2lf\n",tmp.in/100.0,tmp.out/100.0);
 					} else {
 						int b=(int)getnum(ss);
 						if(b>=0&&b<=fincnt) {
@@ -718,7 +718,7 @@ void work(string file) {
 							ttfile.close();
 							tmp.in=t1.in-t2.in;
 							tmp.out=t1.out-t2.out;
-							printf("+ %.2lf - %.2lf\n",tmp.in,tmp.out);
+							printf("+ %.2lf - %.2lf\n",tmp.in/100.0,tmp.out/100.0);
 						} else puts("Invalid");
 					}
 				} else {
@@ -773,7 +773,7 @@ void work(string file) {
 			else {
 				string a=getwd(ss);
 				int b=(int)getnum(ss);
-				double c;
+				long long c;
 				if(a==""||b<0||ss!=""||!(c=findisbn(a,b)))puts("Invalid");
 				else {
 					c--;
