@@ -20,6 +20,9 @@ struct Name {
 		for(int i=0; i<d.length(); i++)name[i]=d[i];
 		name[d.length()]='\0';
 	}
+	int size(){
+		return 4+strlen(id)+strlen(pass)+strlen(name);
+	}
 };
 struct Book {
 	char isbn[101],name[101],aut[101],kw[101];
@@ -44,6 +47,9 @@ struct Book {
 		kw[d.length()]='\0';
 		sum=e;
 		cost=f;
+	}
+	int size(){
+		return 4+8+strlen(isbn)+strlen(aut)+strlen(kw)+strlen(name);
 	}
 };
 struct Finance {
@@ -374,7 +380,8 @@ void deleteb() {
 	sprintf(dataname,"%s%d%s","book", nowbx,".txt");
 	ifstream tfile(dataname,ifstream::in|ifstream::binary);
 	fstream ttmp("orz.txt",fstream::out|fstream::binary);
-	ttmp.flush();Book tmp;
+	ttmp.flush();
+	Book tmp;
 	for(int oo=1; oo<=e[nowbx].tot; oo++) {
 		tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
 		if(nowby==1&&oo==2)e[nowbx].mins=string(tmp.isbn);
@@ -412,8 +419,7 @@ bool findisbn(Book A) {
 		} else if(e[i].ne==0||e[e[i].ne].mins>string(A.isbn))return 0;
 	}
 }
-bool judge(string A,string B)
-{
+bool judge(string A,string B) {
 	int tmp=A.find(B);
 	if(tmp>=A.length())return 0;
 	if(tmp!=0&&A[tmp-1]!='|')return 0;
@@ -435,7 +441,7 @@ void showall(Book A) {
 			if(string(A.name)!=""&&string(tmp.name)!=string(A.name))continue;
 			if(string(A.aut)!=""&&string(tmp.aut)!=string(A.aut))continue;
 			if(string(A.kw)!=""&&!judge(string(tmp.kw),string(A.kw)))continue;
-			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/100.0,tmp.sum);
+			printf("%s\t%s\t%s\t%s\t%.2lf\t%d鏈琝n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/100.0,tmp.sum);
 		}
 		tfile.close();
 	}
@@ -465,17 +471,17 @@ long long findisbn(string A,int b) {
 	}
 }
 void work(string file) {
-	/*char dataname[20];
+	char dataname[20];
 	for(int i=0; i<file.length(); i++)dataname[i]=file[i];
 	dataname[file.length()]='\0';
 	ifstream in(dataname);
 	if(!in) {
 		puts("Invalid");
 		return;
-	}*/
+	}
 	string ss;
 	while(1) {
-		getline(cin,ss);
+		getline(in,ss);
 		if(ss==ex)return;
 		string s=getwd(ss);
 		if(s==logout) {
@@ -802,12 +808,12 @@ void work(string file) {
 			}
 		} else puts("Invalid");
 	}
-	//in.close(); 
+	in.close();
 }
 int main() {
-	//ifstream command("command.txt");
+	ifstream command("command.txt");
 	ofstream precreate("orz.txt");
-	//freopen("1.out","w",stdout); 
+//	freopen("1.out","w",stdout);
 	precreate.close();
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
@@ -822,25 +828,24 @@ int main() {
 	e[1].tot=1;
 	e[1].mins="\0";
 	e[1].maxs="\0";
-	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
-	char orz[101];
-	orz[0]='a';orz[1]='c';orz[2]='\0';
-	file_name.write((char*)(&orz),3);
+	Book ttmp=Book("","@","@","@",0,0);
+	printf("%d\n",sizeof(ttmp));
+	file_name.write((char*)(&ttmp),ttmp.size());
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
-	//findu(tmp);
+	findu(tmp);
 	//work("orz");
-	//if(!command) {
+	/*if(!command) {
 		//orz;
-	//} else {
-	/*	string s;
+	} else {
+		string s;
 		while(1) {
-			cin>>s;//command>>s;
+			command>>s;
 			if(s==load) {
-				getline(cin,s);//getline(command,s);
+				getline(command,s);
 				getfile(s);
 				work(s);
 			} else if(s==ex)return 0;
-		}*/
-	//}
+		}
+	}*/
 }
