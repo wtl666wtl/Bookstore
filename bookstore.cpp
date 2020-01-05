@@ -20,14 +20,11 @@ struct Name {
 		for(int i=0; i<d.length(); i++)name[i]=d[i];
 		name[d.length()]='\0';
 	}
-	int size(){
-		return 4+strlen(id)+strlen(pass)+strlen(name);
-	}
 };
 struct Book {
 	char isbn[101],name[101],aut[101],kw[101];
 	int sum;
-	double cost;
+	long long cost;
 	Book() {
 		isbn[0]='\0';
 		aut[0]='\0';
@@ -36,7 +33,7 @@ struct Book {
 		sum=0;
 		cost=0;
 	}
-	Book(string a,string b,string c,string d,int e,double f) {
+	Book(string a,string b,string c,string d,int e,long long f) {
 		for(int i=0; i<a.length(); i++)isbn[i]=a[i];
 		isbn[a.length()]='\0';
 		for(int i=0; i<b.length(); i++)name[i]=b[i];
@@ -48,16 +45,13 @@ struct Book {
 		sum=e;
 		cost=f;
 	}
-	int size(){
-		return 4+8+strlen(isbn)+strlen(aut)+strlen(kw)+strlen(name);
-	}
 };
 struct Finance {
-	double in,out;
+	long long in,out;
 	Finance() {
 		in=out=0;
 	}
-	Finance(double a,double b) {
+	Finance(long long a,long long b) {
 		in=a;
 		out=b;
 	}
@@ -380,8 +374,7 @@ void deleteb() {
 	sprintf(dataname,"%s%d%s","book", nowbx,".txt");
 	ifstream tfile(dataname,ifstream::in|ifstream::binary);
 	fstream ttmp("orz.txt",fstream::out|fstream::binary);
-	ttmp.flush();
-	Book tmp;
+	ttmp.flush();Book tmp;
 	for(int oo=1; oo<=e[nowbx].tot; oo++) {
 		tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Book));
 		if(nowby==1&&oo==2)e[nowbx].mins=string(tmp.isbn);
@@ -419,19 +412,14 @@ bool findisbn(Book A) {
 		} else if(e[i].ne==0||e[e[i].ne].mins>string(A.isbn))return 0;
 	}
 }
-bool judge(string A,string B) {
-	if(A==B)return 1;
-	int tmp=A.find('|'+B+'|');
-	if(tmp<A.length())return 1;
-	if(A.substr(0,B.length()+1)==B+'|')return 1;
-	if(A.substr(A.length()-B.length()-1,B.length()+1)=='|'+B)return 1;
-	return 0;
-	/*int tmp=A.find(B);
+bool judge(string A,string B)
+{
+	int tmp=A.find(B);
 	if(tmp>=A.length())return 0;
 	if(tmp!=0&&A[tmp-1]!='|')return 0;
 	tmp+=B.length();
 	if(tmp!=A.length()&&A[tmp]!='|')return 0;
-	return 1;*/
+	return 1;
 }
 void showall(Book A) {
 	for(int i=1; i; i=e[i].ne) {
@@ -447,12 +435,12 @@ void showall(Book A) {
 			if(string(A.name)!=""&&string(tmp.name)!=string(A.name))continue;
 			if(string(A.aut)!=""&&string(tmp.aut)!=string(A.aut))continue;
 			if(string(A.kw)!=""&&!judge(string(tmp.kw),string(A.kw)))continue;
-			printf("%s\t%s\t%s\t%s\t%.2lf\t%d鏈琝n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost,tmp.sum);
+			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/100.0,tmp.sum);
 		}
 		tfile.close();
 	}
 }
-double findisbn(string A,int b) {
+long long findisbn(string A,int b) {
 	for(int i=1; i; i=e[i].ne) {
 		if(e[i].mins<=A&&e[i].maxs>=A) {
 			char dataname[20];
@@ -464,30 +452,29 @@ double findisbn(string A,int b) {
 				if(string(tmp.isbn)==A) {
 					tfile.close();
 					if(tmp.sum>=b&&tmp.cost>=0)tmp.sum-=b;
-					else return -1;
+					else return 0;
 					fstream ttfile(dataname,fstream::in|fstream::out|fstream::binary);
 					ttfile.seekp((oo-1)*sizeof(Book));
 					ttfile.write(reinterpret_cast<char *>(&tmp),sizeof(Book));
-					return tmp.cost;
+					return tmp.cost+1;
 				}
 			}
 			tfile.close();
-			return -1;
-		} else if(e[i].ne==0||e[e[i].ne].mins>A)return -1;
+			return 0;
+		} else if(e[i].ne==0||e[e[i].ne].mins>A)return 0;
 	}
 }
 void work(string file) {
-	char dataname[20];
+	/*char dataname[20];
 	for(int i=0; i<file.length(); i++)dataname[i]=file[i];
 	dataname[file.length()]='\0';
-	/*ifstream in(dataname);
+	ifstream in(dataname);
 	if(!in) {
 		puts("Invalid");
 		return;
 	}*/
 	string ss;
 	while(1) {
-		//getline(in,ss);
 		getline(cin,ss);
 		if(ss==ex)return;
 		string s=getwd(ss);
@@ -572,7 +559,7 @@ void work(string file) {
 			if(nowu.key<3)puts("Invalid");
 			else {
 				string a=getname(ss);
-				if(a==""||ss!="")puts("Invalid");
+				if(a=="")puts("Invalid");
 				else {
 					Book tmp=Book(a,"\0","\0","\0",0,0);
 					findb(tmp);
@@ -583,7 +570,7 @@ void work(string file) {
 			else {
 				Book tmp=Book();
 				string a,b,c,d;
-				double e=-1;
+				int e=-1;
 				bool flag=0;
 				while(ss!="") {
 					if(ss[0]=='-')ss.erase(0,1);
@@ -622,7 +609,7 @@ void work(string file) {
 							break;
 						}
 						ss.erase(0,1);
-						e=getnum(ss);
+						e=100ll*getnum(ss);
 						if(e<0) {
 							flag=1;
 							break;
@@ -652,14 +639,7 @@ void work(string file) {
 						ttfile.close();
 					} else {
 						if(findisbn(tmp))puts("Invalid");
-						else {
-							memcpy(tt.isbn,tmp.isbn,sizeof(tt.isbn));
-							if(string(tmp.aut)!="\0")memcpy(tt.aut,tmp.aut,sizeof(tt.aut));
-							if(string(tmp.name)!="\0")memcpy(tt.name,tmp.name,sizeof(tt.name));
-							if(string(tmp.kw)!="\0")memcpy(tt.kw,tmp.kw,sizeof(tt.kw));
-							if(tmp.cost>=0)tt.cost=tmp.cost;
-							deleteb(),findb(tt);
-						}
+						else tmp.cost=(tmp.cost==-1ll?0ll:tmp.cost),deleteb(),findb(tmp);
 					}
 				} else puts("Invalid");
 			}
@@ -667,7 +647,7 @@ void work(string file) {
 			if(nowu.key<3||nowbx==0)puts("Invalid");
 			else {
 				int a=(int)getnum(ss);
-				double b=getnum(ss);
+				int b=100*getnum(ss);
 				if(a<0||b<0||ss!="")puts("Invalid");
 				else {
 					Finance tmp=Finance(0,b);
@@ -718,7 +698,7 @@ void work(string file) {
 						tfile.seekg((fincnt-1)*sizeof(Finance));
 						tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Finance));
 						tfile.close();
-						printf("+ %.2lf - %.2lf\n",tmp.in,tmp.out);
+						printf("+ %.2lf - %.2lf\n",tmp.in/100.0,tmp.out/100.0);
 					} else {
 						int b=(int)getnum(ss);
 						if(b>=0&&b<=fincnt) {
@@ -728,12 +708,12 @@ void work(string file) {
 							tfile.read(reinterpret_cast<char *>(&t1),sizeof(Finance));
 							tfile.close();
 							fstream ttfile("finance.txt",fstream::in|fstream::binary);
-							ttfile.seekg((fincnt-b-1)*sizeof(Finance));
+							ttfile.seekg((fincnt-b)*sizeof(Finance));
 							ttfile.read(reinterpret_cast<char *>(&t2),sizeof(Finance));
 							ttfile.close();
 							tmp.in=t1.in-t2.in;
 							tmp.out=t1.out-t2.out;
-							printf("+ %.2lf - %.2lf\n",tmp.in,tmp.out);
+							printf("+ %.2lf - %.2lf\n",tmp.in/100.0,tmp.out/100.0);
 						} else puts("Invalid");
 					}
 				} else {
@@ -788,9 +768,10 @@ void work(string file) {
 			else {
 				string a=getwd(ss);
 				int b=(int)getnum(ss);
-				double c;
-				if(a==""||b<0||ss!=""||(c=findisbn(a,b))==-1)puts("Invalid");
+				long long c;
+				if(a==""||b<0||ss!=""||!(c=findisbn(a,b)))puts("Invalid");
 				else {
+					c--;
 					//cout<<c<<' '<<b<<endl;
 					Finance tmp=Finance(c*b,0);
 					if(fincnt==0) {
@@ -814,12 +795,12 @@ void work(string file) {
 			}
 		} else puts("Invalid");
 	}
-	//in.close();
+	//in.close(); 
 }
 int main() {
-	ifstream command("command.txt");
+	//ifstream command("command.txt");
 	ofstream precreate("orz.txt");
-	//freopen("1.out","w",stdout);
+	//freopen("1.out","w",stdout); 
 	precreate.close();
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
@@ -834,24 +815,23 @@ int main() {
 	e[1].tot=1;
 	e[1].mins="\0";
 	e[1].maxs="\0";
-	Book ttmp=Book("","@","@","@",0,0);
-	//printf("%d\n",sizeof(ttmp));
-	file_name.write(reinterpret_cast<char *>(&ttmp),sizeof(Book));
+	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
+	file_name.write(reinterpret_cast<const char *>(&ttmp),sizeof(Book));
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
 	work("orz");
-	/*if(!command) {
+	//if(!command) {
 		//orz;
-	} else {
-		string s;
+	//} else {
+	/*	string s;
 		while(1) {
-			command>>s;
+			cin>>s;//command>>s;
 			if(s==load) {
-				getline(command,s);
+				getline(cin,s);//getline(command,s);
 				getfile(s);
 				work(s);
 			} else if(s==ex)return 0;
-		}
-	}*/
+		}*/
+	//}
 }
