@@ -412,14 +412,19 @@ bool findisbn(Book A) {
 		} else if(e[i].ne==0||e[e[i].ne].mins>string(A.isbn))return 0;
 	}
 }
-bool judge(string A,string B)
-{
-	int tmp=A.find(B);
+bool judge(string A,string B) {
+	if(A==B)return 1;
+	int tmp=A.find('|'+B+'|');
+	if(tmp<A.length())return 1;
+	if(A.substr(0,B.length()+1)==B+'|')return 1;
+	if(A.substr(A.length()-B.length()-1,B.length()+1)=='|'+B)return 1;
+	return 0;
+	/*int tmp=A.find(B);
 	if(tmp>=A.length())return 0;
 	if(tmp!=0&&A[tmp-1]!='|')return 0;
 	tmp+=B.length();
 	if(tmp!=A.length()&&A[tmp]!='|')return 0;
-	return 1;
+	return 1;*/
 }
 void showall(Book A) {
 	for(int i=1; i; i=e[i].ne) {
