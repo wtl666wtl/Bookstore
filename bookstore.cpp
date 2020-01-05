@@ -823,7 +823,8 @@ int main() {
 	e[1].mins="\0";
 	e[1].maxs="\0";
 	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
-	file_name.write((char*)(&ttmp),sizeof(Book));
+	int test=1;
+	file_name.write((char*)(&test),sizeof(test));
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	//findu(tmp);
