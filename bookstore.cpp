@@ -820,7 +820,7 @@ int main() {
 	file_name.write(reinterpret_cast<const char *>(&ttmp),sizeof(Book));
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
-	//findu(tmp);
+	findu(tmp);
 	//work("True.in");
 	//if(!command) {
 		//orz;
