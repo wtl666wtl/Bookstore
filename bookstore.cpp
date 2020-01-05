@@ -819,41 +819,8 @@ bool memory_leak()
 	return 0;
 }
 int main() {
-	//ifstream command("command.txt");
-	ofstream precreate("orz.txt");
-	//freopen("1.out","w",stdout); 
-	precreate.close();
-	if(memory_leak())return 0;
-	char dataname[20];
-	for (int i=0; i<mo; i++) {
-		sprintf(dataname,"%s%d%s","name", i,".txt");
-		ofstream file_name(dataname,ofstream::out|ofstream::binary);
-		file_name.flush();
-		file_name.close();
-	}
-	sprintf(dataname,"%s%d%s","book", 1,".txt");
-	ofstream file_name(dataname,ofstream::out|ofstream::binary);
-	file_name.flush();
-	e[1].tot=1;
-	e[1].mins="\0";
-	e[1].maxs="\0";
-	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
-	file_name.write(reinterpret_cast<const char *>(&ttmp),sizeof(Book));
-	file_name.close();
-	Name tmp=ok("root","sjtu","7","root");
-	findu(tmp);
-	work("True.in");
-	//if(!command) {
-		//orz;
-	//} else {
-	/*	string s;
-		while(1) {
-			cin>>s;//command>>s;
-			if(s==load) {
-				getline(cin,s);//getline(command,s);
-				getfile(s);
-				work(s);
-			} else if(s==ex)return 0;
-		}*/
-	//}
+	ofstream file_name("1.in",ofstream::out|ofstream::binary);
+	char orz[101];
+	orz[0]='a';orz[1]='c';orz[2]='\0';
+	file_name.write((char*)(orz),3);
 }
