@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define mo 499
-#define num 33
+#define num 100003
 using namespace std;
 struct Name {
 	char id[101],pass[101],name[101];
@@ -420,12 +420,20 @@ bool findisbn(Book A) {
 	}
 }
 bool judge(string A,string B) {
-	int tmp=A.find(B);
+	for(int i=0;i<A.length();i++){
+		bool flag=1;
+		for(int j=0;j<B.length();j++)if(A[i+j]!=B[j]){
+			flag=0;break;
+		}
+		if(flag&&(i+B.length()==A.length()|A[i+B.length()]=='|'))return 1;
+	}
+	return 0;
+	/*int tmp=A.find(B);
 	if(tmp>=A.length())return 0;
 	if(tmp!=0&&A[tmp-1]!='|')return 0;
 	tmp+=B.length();
 	if(tmp!=A.length()&&A[tmp]!='|')return 0;
-	return 1;
+	return 1;*/
 }
 void showall(Book A) {
 	for(int i=1; i; i=e[i].ne) {
@@ -458,16 +466,16 @@ double findisbn(string A,int b) {
 				if(string(tmp.isbn)==A) {
 					tfile.close();
 					if(tmp.sum>=b&&tmp.cost>=0)tmp.sum-=b;
-					else return 0;
+					else return -1;
 					fstream ttfile(dataname,fstream::in|fstream::out|fstream::binary);
 					ttfile.seekp((oo-1)*sizeof(Book));
 					ttfile.write(reinterpret_cast<char *>(&tmp),sizeof(Book));
-					return tmp.cost+1;
+					return tmp.cost;
 				}
 			}
 			tfile.close();
-			return 0;
-		} else if(e[i].ne==0||e[e[i].ne].mins>A)return 0;
+			return -1;
+		} else if(e[i].ne==0||e[e[i].ne].mins>A)return -1;
 	}
 }
 void work(string file) {
@@ -566,7 +574,7 @@ void work(string file) {
 			if(nowu.key<3)puts("Invalid");
 			else {
 				string a=getname(ss);
-				if(a=="")puts("Invalid");
+				if(a==""||ss!="")puts("Invalid");
 				else {
 					Book tmp=Book(a,"\0","\0","\0",0,0);
 					findb(tmp);
@@ -783,9 +791,8 @@ void work(string file) {
 				string a=getwd(ss);
 				int b=(int)getnum(ss);
 				double c;
-				if(a==""||b<0||ss!=""||!(c=findisbn(a,b)))puts("Invalid");
+				if(a==""||b<0||ss!=""||(c=findisbn(a,b))==-1)puts("Invalid");
 				else {
-					c--;
 					//cout<<c<<' '<<b<<endl;
 					Finance tmp=Finance(c*b,0);
 					if(fincnt==0) {
@@ -814,7 +821,7 @@ void work(string file) {
 int main() {
 	ifstream command("command.txt");
 	ofstream precreate("orz.txt");
-//	freopen("1.out","w",stdout);
+	//freopen("1.out","w",stdout);
 	precreate.close();
 	char dataname[20];
 	for (int i=0; i<mo; i++) {
@@ -831,7 +838,7 @@ int main() {
 	e[1].maxs="\0";
 	Book ttmp=Book("","@","@","@",0,0);
 	//printf("%d\n",sizeof(ttmp));
-	file_name.write((char*)(&ttmp),ttmp.size());
+	file_name.write(reinterpret_cast<char *>(&ttmp),ttmp.size());
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
