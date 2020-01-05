@@ -6,6 +6,7 @@ struct Name {
 	char id[101],pass[101],name[101];
 	int key;
 	Name() {
+		memset(this,0,sizeof(*this));
 		for(int i=0;i<=100;i++)id[i]=pass[i]=name[i]='\0';
 		key=0;
 	}
@@ -24,6 +25,7 @@ struct Book {
 	int sum;
 	long long cost;
 	Book() {
+		memset(this,0,sizeof(*this));
 		for(int i=0;i<=100;i++)isbn[i]=aut[i]=kw[i]=name[i]='\0';
 		sum=0;
 		cost=0;
@@ -181,8 +183,8 @@ bool findu(Name A) {
 	}
 	tfile.close();
 	ofstream ttfile(dataname, ofstream::app|ofstream::binary);
-	//ttfile.write(reinterpret_cast<const char *>(&A),sizeof(Name));
-	ttfile.close();
+	ttfile.write(reinterpret_cast<const char *>(&A),sizeof(Name));
+	ttfile.close();g
 	return 1;
 }
 bool changepass(Name A) {
@@ -820,7 +822,7 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
-	//work("True.in");
+	work("True.in");
 	//if(!command) {
 		//orz;
 	//} else {
