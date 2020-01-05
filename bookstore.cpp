@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define mo 499
-#define num 100003
+#define num 33
 using namespace std;
 struct Name {
 	char id[101],pass[101],name[101];
@@ -420,13 +420,11 @@ bool findisbn(Book A) {
 	}
 }
 bool judge(string A,string B) {
-	for(int i=0;i<A.length();i++){
-		bool flag=1;
-		for(int j=0;j<B.length();j++)if(A[i+j]!=B[j]){
-			flag=0;break;
-		}
-		if(flag&&(i+B.length()==A.length()|A[i+B.length()]=='|'))return 1;
-	}
+	if(A==B)return 1;
+	int tmp=A.find('|'+B+'|');
+	if(tmp<A.length())return 1;
+	if(A.substr(0,B.length()+1)==B+'|')return 1;
+	if(A.substr(A.length()-B.length()-1,B.length()+1)=='|'+B)return 1;
 	return 0;
 	/*int tmp=A.find(B);
 	if(tmp>=A.length())return 0;
