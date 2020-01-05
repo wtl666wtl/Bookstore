@@ -825,7 +825,7 @@ int main() {
 	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
 	char orz[101];
 	orz[0]='a';orz[1]='c';orz[2]='\0';
-	file_name.write((char*)(&orz),sizeof(orz));
+	file_name.write((char*)(&orz),3);
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	//findu(tmp);
