@@ -820,7 +820,7 @@ int main() {
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
 	findu(tmp);
-	work("True.in");
+	//work("True.in");
 	//if(!command) {
 		//orz;
 	//} else {
