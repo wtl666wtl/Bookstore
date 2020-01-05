@@ -440,7 +440,7 @@ void showall(Book A) {
 			if(string(A.name)!=""&&string(tmp.name)!=string(A.name))continue;
 			if(string(A.aut)!=""&&string(tmp.aut)!=string(A.aut))continue;
 			if(string(A.kw)!=""&&!judge(string(tmp.kw),string(A.kw)))continue;
-			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/10000.0,tmp.sum);
+			printf("%s\t%s\t%s\t%s\t%.2lf\t%d本\n",tmp.isbn,tmp.name,tmp.aut,tmp.kw,tmp.cost/1000000.0,tmp.sum);
 		}
 		tfile.close();
 	}
@@ -614,7 +614,7 @@ void work(string file) {
 							break;
 						}
 						ss.erase(0,1);
-						e=10000ll*getnum(ss);
+						e=1000000ll*getnum(ss);
 						if(e<0) {
 							flag=1;
 							break;
@@ -652,7 +652,7 @@ void work(string file) {
 			if(nowu.key<3||nowbx==0)puts("Invalid");
 			else {
 				int a=(int)getnum(ss);
-				int b=10000*getnum(ss);
+				long long b=1000000ll*getnum(ss);
 				if(a<0||b<0||ss!="")puts("Invalid");
 				else {
 					Finance tmp=Finance(0,b);
@@ -703,7 +703,7 @@ void work(string file) {
 						tfile.seekg((fincnt-1)*sizeof(Finance));
 						tfile.read(reinterpret_cast<char *>(&tmp),sizeof(Finance));
 						tfile.close();
-						printf("+ %.2lf - %.2lf\n",tmp.in/10000.0,tmp.out/10000.0);
+						printf("+ %.2lf - %.2lf\n",tmp.in/1000000.0,tmp.out/1000000.0);
 					} else {
 						int b=(int)getnum(ss);
 						if(b>=0&&b<=fincnt) {
@@ -718,7 +718,7 @@ void work(string file) {
 							ttfile.close();
 							tmp.in=t1.in-t2.in;
 							tmp.out=t1.out-t2.out;
-							printf("+ %.2lf - %.2lf\n",tmp.in/10000.0,tmp.out/10000.0);
+							printf("+ %.2lf - %.2lf\n",tmp.in/1000000.0,tmp.out/1000000.0);
 						} else puts("Invalid");
 					}
 				} else {
