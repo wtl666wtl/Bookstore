@@ -833,7 +833,7 @@ int main() {
 	file_name.write((char*)(&ttmp),ttmp.size());
 	file_name.close();
 	Name tmp=ok("root","sjtu","7","root");
-	findu(tmp);
+	//findu(tmp);
 	//work("orz");
 	/*if(!command) {
 		//orz;
