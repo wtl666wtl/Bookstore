@@ -6,19 +6,17 @@ struct Name {
 	char id[101],pass[101],name[101];
 	int key;
 	Name() {
-		id[0]='\0';
-		pass[0]='\0';
+		for(int i=0;i<=100;i++)id[i]=pass[i]=name[i]='\0';
 		key=0;
-		name[0]='\0';
 	}
 	Name(string a,string b,int c,string d) {
 		for(int i=0; i<a.length(); i++)id[i]=a[i];
-		id[a.length()]='\0';
+		for(int i=a.length(); i<=100; i++)id[i]='\0';
 		for(int i=0; i<b.length(); i++)pass[i]=b[i];
-		pass[b.length()]='\0';
+		for(int i=b.length(); i<=100; i++)pass[i]='\0';
 		key=c;
 		for(int i=0; i<d.length(); i++)name[i]=d[i];
-		name[d.length()]='\0';
+		for(int i=d.length(); i<=100; i++)name[i]='\0';
 	}
 };
 struct Book {
@@ -26,22 +24,19 @@ struct Book {
 	int sum;
 	long long cost;
 	Book() {
-		isbn[0]='\0';
-		aut[0]='\0';
-		kw[0]='\0';
-		name[0]='\0';
+		for(int i=0;i<=100;i++)isbn[i]=aut[i]=kw[i]=name[i]='\0';
 		sum=0;
 		cost=0;
 	}
 	Book(string a,string b,string c,string d,int e,long long f) {
 		for(int i=0; i<a.length(); i++)isbn[i]=a[i];
-		isbn[a.length()]='\0';
+		for(int i=a.length(); i<=100; i++)isbn[i]='\0';
 		for(int i=0; i<b.length(); i++)name[i]=b[i];
-		name[b.length()]='\0';
+		for(int i=b.length(); i<=100; i++)name[i]='\0';
 		for(int i=0; i<c.length(); i++)aut[i]=c[i];
-		aut[c.length()]='\0';
+		for(int i=c.length(); i<=100; i++)aut[i]='\0';
 		for(int i=0; i<d.length(); i++)kw[i]=d[i];
-		kw[d.length()]='\0';
+		for(int i=d.length(); i<=100; i++)kw[i]='\0';
 		sum=e;
 		cost=f;
 	}
@@ -473,14 +468,14 @@ void work(string file) {
 	char dataname[20];
 	for(int i=0; i<file.length(); i++)dataname[i]=file[i];
 	dataname[file.length()]='\0';
-	ifstream in(dataname);
+	/*ifstream in(dataname);
 	if(!in) {
 		puts("Invalid");
 		return;
-	}
+	}*/
 	string ss;
 	while(1) {
-		getline(in,ss);
+		getline(cin,ss);
 		if(ss==ex)return;
 		string s=getwd(ss);
 		if(s==logout) {
@@ -800,7 +795,7 @@ void work(string file) {
 			}
 		} else puts("Invalid");
 	}
-	in.close(); 
+	//in.close(); 
 }
 bool memory_leak()
 {
@@ -819,9 +814,41 @@ bool memory_leak()
 	return 0;
 }
 int main() {
-	ofstream file_name("1.in",ofstream::out|ofstream::binary);
-	char orz[101];
-	orz[0]='a';orz[1]='c';orz[2]='\0';
-	for(int i=3;i<=100;i++)orz[i]='\0';
-	file_name.write((char*)(orz),sizeof(orz));
+	//ifstream command("command.txt");
+	ofstream precreate("orz.txt");
+	//freopen("1.out","w",stdout); 
+	precreate.close();
+	//if(memory_leak())return 0;
+	char dataname[20];
+	for (int i=0; i<mo; i++) {
+		sprintf(dataname,"%s%d%s","name", i,".txt");
+		ofstream file_name(dataname,ofstream::out|ofstream::binary);
+		file_name.flush();
+		file_name.close();
+	}
+	sprintf(dataname,"%s%d%s","book", 1,".txt");
+	ofstream file_name(dataname,ofstream::out|ofstream::binary);
+	file_name.flush();
+	e[1].tot=1;
+	e[1].mins="\0";
+	e[1].maxs="\0";
+	Book ttmp=Book("\0","@\0","@\0","@\0",0,0);
+	file_name.write(reinterpret_cast<const char *>(&ttmp),sizeof(Book));
+	file_name.close();
+	Name tmp=ok("root","sjtu","7","root");
+	findu(tmp);
+	work("True.in");
+	//if(!command) {
+		//orz;
+	//} else {
+	/*	string s;
+		while(1) {
+			cin>>s;//command>>s;
+			if(s==load) {
+				getline(cin,s);//getline(command,s);
+				getfile(s);
+				work(s);
+			} else if(s==ex)return 0;
+		}*/
+	//}
 }
